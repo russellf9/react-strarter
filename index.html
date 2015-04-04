@@ -5,24 +5,49 @@
     <title>React JS -1 </title>
     <script src="./bower_components/react/react.js"></script>
     <script src="./bower_components/react/JSXTransformer.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
 </head>
 <body>
 <div id="content"></div>
 
-
+<!--example from: http://facebook.github.io/react/docs/tutorial.html-->
 <script type="text/jsx">
+    // tutorial2.js
+    var CommentList = React.createClass({
+        render: function() {
+            return (
+                <div className="commentList">
+                Hello, world! I am a CommentList.
+                </div>
+            );
+        }
+    });
+
+    //
+    var CommentForm = React.createClass({
+        render: function() {
+            return (
+                <div className="commentForm">
+                Hello, world! I am a CommentForm.
+                </div>
+            );
+        }
+    });
+
+    //
     var CommentBox = React.createClass({displayName: 'CommentBox',
         render: function() {
             return (
-                React.createElement('div', {className: "commentBox"},
-                    "Hello, world! I am a CommentBox."
-                )
+                <div className="commentBox">
+                    <h1>Comments</h1>
+                    <CommentList />
+                    <CommentForm />
+                </div>
             );
         }
     });
     React.render(
-        React.createElement(CommentBox, null),
+        <CommentBox />,
         document.getElementById('content')
     );
 </script>
