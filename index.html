@@ -6,6 +6,7 @@
     <script src="./bower_components/react/react.js"></script>
     <script src="./bower_components/react/JSXTransformer.js"></script>
     <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
 </head>
 <body>
 <div id="content"></div>
@@ -50,14 +51,19 @@
     });
 
     //
+    var converter = new Showdown.converter();
+
     var Comment = React.createClass({
         render: function() {
+            // Use  special API that intentionally makes it difficult to insert raw HTML, but for Showdown we'll take advantage of this backdoor!
+            // Remember: by using this feature you're relying on Showdown to be secure.
+            var rawMarkup = converter.makeHtml(this.props.children.toString());
             return (
                 <div className="comment">
                     <h2 className="commentAuthor">
                         {this.props.author}
                     </h2>
-                    {this.props.children}
+                    <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
                 </div>
             );
         }
